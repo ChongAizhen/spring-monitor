@@ -1,0 +1,38 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 2000 # feign 的超时设置
+        readTimeout: 9000
+ribbon:
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ReadTimeout: 6000
+  ConnectTimeout: 1000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+
+
+#1.配置了HystrixCommand超时时间，但feign.hystrix.enabled为false，超时时间为feign.client超时时间（ribbon不起作用）
+#2.配置了HystrixCommand超时时间，但feign.hystrix.enabled为true，超时时间为feign.client超时时间与HystrixCommand超时时间最小值（ribbon不起作用）
+#3.注释掉feign.client，但feign.hystrix.enabled为false，超时时间为ribbon时间
+#4.注释掉feign.client，但feign.hystrix.enabled为true，超时时间为ribbon时间与HystrixCommand超时时间最小值
+#5.注释掉feign.client与ribbon，超时时间为feign.client的默认超时时间2s与HystrixCommand超时时间的最小值
