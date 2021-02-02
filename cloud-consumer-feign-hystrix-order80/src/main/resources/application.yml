@@ -29,7 +29,7 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 6000
-
+          strategy: SEMAPHORE
 
 #1.配置了HystrixCommand超时时间，但feign.hystrix.enabled为false，超时时间为feign.client超时时间（ribbon不起作用）
 #2.配置了HystrixCommand超时时间，但feign.hystrix.enabled为true，超时时间为feign.client超时时间与HystrixCommand超时时间最小值（ribbon不起作用）
