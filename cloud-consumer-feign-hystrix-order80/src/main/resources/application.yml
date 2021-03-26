@@ -1,6 +1,10 @@
 server:
   port: 80
 
+spring:
+  application:
+    name: cloud-consumer
+
 eureka:
   client:
     register-with-eureka: false

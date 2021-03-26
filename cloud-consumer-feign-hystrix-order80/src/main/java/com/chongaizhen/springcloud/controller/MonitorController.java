@@ -4,6 +4,7 @@ import com.chongaizhen.springcloud.service.MonitorService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +43,7 @@ public class MonitorController
     @GetMapping("/test/log")
     public String testLog()
     {
+        log.info("client测试traceId");
         String result = monitorService.testLog(1);
         return result;
     }
