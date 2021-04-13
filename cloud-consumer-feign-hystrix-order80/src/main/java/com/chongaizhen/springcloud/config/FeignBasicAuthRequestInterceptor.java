@@ -21,6 +21,7 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
+
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes();
         if (Objects.isNull(attributes)) {
@@ -35,6 +36,7 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
                 requestTemplate.header(name, values);
             }
         }
+
         requestTemplate.header(THREAD_ID, MDC.get(THREAD_ID));
     }
 }
