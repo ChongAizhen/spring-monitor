@@ -4,11 +4,18 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <springProperty scope="context" name="moduleName" source="spring.application.name" defaultValue="default"/>
-    <property name="APP_NAME" value="${moduleName}" />
+    <property name="APP_NAME" value="${moduleName}"/>
     　　　
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>　　　　　　　
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%X{THREAD_ID}] [%thread] [${APP_NAME}] %-5level %logger -%msg%n</pattern>
+<!--        <encoder>　　　　　　　-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%X{THREAD_ID}] [%thread] [${APP_NAME}] %-5level %logger -%msg%n</pattern>-->
+<!--        </encoder>-->
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">　
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <!-- 日志格式中添加 %tid 即可输出 trace id -->
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} [%tid] [%X{THREAD_ID}] [%thread] [${APP_NAME}] %-5level %logger -%msg%n
+                </pattern>
+            </layout>
         </encoder>
     </appender>
 

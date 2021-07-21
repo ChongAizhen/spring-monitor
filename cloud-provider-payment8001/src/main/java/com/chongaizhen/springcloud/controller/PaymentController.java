@@ -4,6 +4,9 @@ import com.chongaizhen.springcloud.entities.CommonResult;
 import com.chongaizhen.springcloud.entities.Payment;
 import com.chongaizhen.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.skywalking.apm.toolkit.trace.Tag;
+import org.apache.skywalking.apm.toolkit.trace.Tags;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.cloud.client.ServiceInstance;
@@ -39,6 +42,8 @@ public class PaymentController
         }
     }
 
+    @Trace(operationName="测试方法")
+    @Tags({@Tag(key = "param", value = "arg[0]"),@Tag(key = "return", value = "returnedObj")})
     @GetMapping(value = "/payment/get/{id}")
     public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id)
     {

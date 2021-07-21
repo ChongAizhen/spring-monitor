@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct;
  * @author chongaizhen
  * @date 2021-04-13
  */
-@Configuration
+//@Configuration
 @Slf4j
 public class HystrixConfig {
 
